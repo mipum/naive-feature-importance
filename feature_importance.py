@@ -2,28 +2,26 @@ import numpy as np
 from keras import model
 
 def feature_off_generator( X, axis):
-    '''
-    Generator yielding modified test input with subsequent features switched off (seroed) across all samples
-    
-    Parameters
-        X : inputs tensor
-        axis : axis of X containing the features to be evaluated
-        
-    Returns
-        copy of X with one feature a time zeroed off
-    '''	
+	'''
+	Generator yielding modified test input with subsequent features switched off (seroed) across all samples
+	Parameters
+		X : inputs tensor
+		axis : axis of X containing the features to be evaluated
+	Returns
+		copy of X with one feature a time zeroed off
+	'''	
 	# prepare a slicer template
 	slcr = [slice(None)] * X.ndim
-	
+
 	# traverse the given axis
 	for f in range(X.shape[axis]):
 		# adjust slicer
 		slcr[axis] = f
-		
+
 		# prepare filter tensor
 		fltr = np.ones(X.shape)
 		fltr[slcr] = 0
-		
+
 		# return copy of X with filter applied
 		yield np.multiply( X, fltr)
 
