@@ -1,5 +1,5 @@
 import numpy as np
-from keras import model
+from keras.models import Model
 
 def feature_off_generator( X, axis):
 	'''
@@ -24,6 +24,8 @@ def feature_off_generator( X, axis):
 
 		# return copy of X with filter applied
 		yield np.multiply( X, fltr)
+
+# create, compile and fit a model 'model'
 
 # get list of model accuracies per each feature zeroed in test data X		
 importancies = [model.evaluate( X_prime, y)[1] for X_prime in feature_off_generator( X, axis)]
